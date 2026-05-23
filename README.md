@@ -4,10 +4,52 @@
   <img src="docs/Fig1.jpg" alt="Fig1" width="1200"/>
 </p>
 
-## Training of NHCs-MSTox model
+## Training of the NHCs-MSTox Model
 
-NHCs-MSTox is a machine-learning framework developed for the toxicity prediction of nitrogen-containing heterocyclic compounds (NHCs). The model was trained on an in-house *Vibrio fischeri* acute toxicity dataset and uses exact mass together with molecular fingerprint features to establish quantitative structure-toxicity relationships. To identify the optimal learning strategy, six regression algorithms were systematically compared, including PLS, elastic net, SVR, KRR, random forest, and histogram-based gradient boosting. After repeated cross-validation and independent test-set evaluation, the best-performing model was selected as the final predictor for downstream application to unknown compounds and transformation products.
+NHCs-MSTox is a machine learning framework for predicting the toxicity of nitrogen-containing heterocyclic compounds (NHCs). The model was trained using a dataset of 108 NHCs with toxicity values obtained from *Vibrio fischeri* bioluminescence inhibition assays. Quantitative structure-toxicity relationships were established using exact mass and the final 60 selected molecular fingerprint features calculated from SMILES. To determine the optimal learning strategy, six regression algorithms were systematically compared, including partial least squares regression (PLS), elastic net regression, support vector regression (SVR), kernel ridge regression (KRR), random forest, and histogram-based gradient boosting. Model hyperparameter tuning was performed using repeated *k*-fold cross-validation, and the optimized models were evaluated on an independent test set using R², RMSE, and MAE. The best-performing model was selected as the final predictor.
 
-## How can our models predict the toxicity of unknown MS/MS?
+The code for model training and testing, together with the optimized model, can be found in the folder:
 
-Our workflow enables toxicity prediction even when a compound has not been fully identified. First, LC-HRMS/MS data are converted into model-compatible structural features. During model development, standardized SMILES were used to calculate molecular fingerprints and exact mass. During practical application, unknown MS/MS spectra are processed to infer the same type of fingerprint information, which is then aligned to the final model input space. The resulting feature vector, composed of 60 selected molecular fingerprints plus exact mass, is fed into the trained NHCs-MSTox model to predict pEC50 values. In this way, the framework supports rapid toxicity screening, prioritization, and ranking of unknown NHC-related compounds directly from MS/MS-derived information.
+`NHCs-MSTox_model_training`
+
+---
+
+## How Can Our Model Predict the Toxicity of Unknown MS/MS?
+
+### Requirements
+
+Before running the workflow, please make sure that:
+
+- SIRIUS is installed
+- Python and the required packages are installed
+
+### Step 1. Calculate fingerprints using SIRIUS
+
+1. Import the MS/MS file into the SIRIUS graphical user interface.  
+   Example input file:  
+   `Test example file_lminostilbene/Iminostilbene MS2.mgf`
+
+2. Calculate the molecular fingerprints and export the fingerprint posterior probability file.  
+   Example output file:  
+   `Test example file_lminostilbene/Iminostilbene_fingerprint_posterior probability.json`
+
+3. Reformat the posterior probability file strictly according to the input template file, and round all probabilities to 0 or 1.  
+   Example template file:  
+   `Test example file_lminostilbene/Iminostilbene_fingerprint.xlsx`
+
+### Step 2. Predict toxicity values
+
+Run the NHCs-MSTox graphical prediction program:
+
+`NHCs-MSTox_prediction/NHCs-MSTox_predictor_gui.py`
+
+Set the input file path and the output path for the prediction results, then click the **Run Prediction** button. The prediction results will be exported to the specified directory.
+
+Example output file:  
+`Test example file_lminostilbene/Iminostilbene_prediction_results.xlsx`
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE.md` file for details.
