@@ -1,7 +1,7 @@
 # NHCs-MSTox
 
 <p align="center">
-  <img src="docs/NHCs-MSTox_workflow.jpg" alt="NHCs-MSTox workflow" width="1200"/>
+  <img src="docs/Fig1.jpg" alt="Fig1" width="1200"/>
 </p>
 
 ## Training of NHCs-MSTox model
