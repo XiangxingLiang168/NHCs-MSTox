@@ -1,8 +1,6 @@
 # NHCs-MSTox
 
-<p align="center">
-  <img src="docs/Fig1.jpg" alt="Fig1" width="1200"/>
-</p>
+![Fig1](./Fig1.jpg)
 
 ## Training of the NHCs-MSTox Model
 
