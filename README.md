@@ -1,6 +1,6 @@
 # NHCs-MSTox
 
-![Fig1](./Fig1.jpg)
+![F1](./F1.jpg)
 
 ## Training of the NHCs-MSTox Model
 
